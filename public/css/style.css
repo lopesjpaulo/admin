@@ -1,0 +1,25 @@
+.action{
+    display: flex;
+    float: right;
+}
+.action a{
+    margin-right: 5px;
+}
+.conteudo{
+    width: 100%; 
+    height: 600px; 
+    font-size: 14px; 
+    line-height: 18px; 
+    border: 1px solid #dddddd; 
+    padding: 10px;
+}
+.img-panel{
+    max-width: 500px;
+}
+.ms-container{
+    width: 100% !important;
+}
+.pagination{
+    float: right;
+}
+
