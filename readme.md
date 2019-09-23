@@ -18,8 +18,7 @@ com a finalidade de ajudar os alunos na preparação para o enem.
 
 ## Instruções 
 
-1. Fazer o pull inicial ou clonar o projeto para sua máquina
-2. Rodar **npm install** ou **npm -i** para a instalação das dependências do client-side.
+1. Clonar o projeto para sua máquina com **git clone https://github.com/lopesjpaulo/admin.git**
 3. Rodar **composer install** para instalar as dependências do server-side.
 4. Modificar o arquivo **.env** com os dados de conexão do seu banco de dados local.
 5. Executar o comando **copy .env.example .env** para criar o arquivo **.env** na pasta.
