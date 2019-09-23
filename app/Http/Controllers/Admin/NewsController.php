@@ -97,12 +97,6 @@ class NewsController extends Controller
     {
         $news = $this->news->find($id);
 
-        //$this->authorize('update-news', $news);
-
-        if(Gate::denies('update-news', $news)){
-            return redirect('/admin/news')->with('fail', 'Você não tem permissão para editar a notícia');
-        }
-
         return view('admin.news.form', compact('news'));
     }
 

@@ -114,4 +114,6 @@
 @section('js')
     <script src="{{ asset('node_modules/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('node_modules/bootstrap3-wysihtml5-npm/dist/bootstrap3-wysihtml5.all.min.js') }}"></script>
+    <script src="{{ asset('node_modules/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('node_modules/ckfinder/ckfinder.js') }}"></script>
 @stop

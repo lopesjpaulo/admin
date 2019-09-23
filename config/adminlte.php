@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'André Cury',
+    'title' => 'Painel',
 
     'title_prefix' => ' Gestão de conteúdo - ',
 
@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => 'André Cury',
+    'logo' => 'Painel',
 
-    'logo_mini' => 'André Cury',
+    'logo_mini' => 'Painel',
 
     /*
     |--------------------------------------------------------------------------
@@ -110,14 +110,14 @@ return [
     'menu' => [
         'SITE',
         [
-            'text' => 'Blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text' => 'Home',
+            'url'  => 'admin/home',
+            'icon' => 'home'
         ],
         [
-            'text'        => 'Home',
-            'url'         => 'home',
-            'icon'        => 'home'
+            'text' => 'Blog',
+            'url'  => 'admin/blog',
+            'can'  => 'view_news',
         ],
         [
             'text' => 'Vitrines',
@@ -143,53 +143,6 @@ return [
             'text' => 'Contatos',
             'url'  => 'admin/leads',
             'icon' => 'envelope'  
-        ],
-        'CONTEÚDO',
-        [
-            'text' => 'Disciplinas',
-            'url'  => 'admin/disciplines',
-            'icon' => 'sitemap',
-        ],
-        [
-            'text' => 'Temas',
-            'url'  => 'admin/themes',
-            'icon' => 'tags',
-        ],
-        [
-            'text' => 'Tipos',
-            'url'  => 'admin/types',
-            'icon' => 'tag',
-        ],
-        [
-            'text'    => 'Ciclo do usuário',
-            'icon'    => 'refresh',
-            'submenu' => [
-                [
-                    'text' => 'Pré-aula',
-                    'url'  => 'admin/classes',
-                    'icon' => 'book'
-                ],
-                [
-                    'text' => 'Mapa mental',
-                    'url'  => 'admin/maps',
-                    'icon' => 'map'
-                ],
-                [
-                    'text' => 'Questões',
-                    'url'  => 'admin/questions',
-                    'icon' => 'check-square-o'
-                ]
-            ],
-        ],
-        [
-            'text' => 'Simulados',
-            'url'  => 'admin/tests',
-            'icon' => 'file-text',
-        ],
-        [
-            'text' => 'Dicas de saúde',
-            'url'  => 'admin/tips',
-            'icon' => 'heartbeat',
         ],
         'GESTÃO',
         [

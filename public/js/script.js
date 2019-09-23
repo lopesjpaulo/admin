@@ -66,8 +66,11 @@ $(function () {
         });
     }
 
-    var editor = CKEDITOR.replace( 'editor', {
-        filebrowserBrowseUrl: 'http://localhost/andrecury/public/node_modules/ckfinder/ckfinder.html',
-        filebrowserUploadUrl: 'http://localhost/andrecury/public/node_modules/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
-    });
+    $('.conteudo').each(function (e) {
+        var editor = CKEDITOR.replace( this.id, {
+            filebrowserBrowseUrl: 'http://localhost/admin/public/node_modules/ckfinder/ckfinder.html',
+            filebrowserUploadUrl: 'http://localhost/admin/public/node_modules/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+        });
+        CKFinder.setupCKEditor( editor , 'ckfinder/');
+    })
   });
