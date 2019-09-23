@@ -1,7 +1,6 @@
 # DESCRIÇÃO DO PROJETO
 
-O projeto consiste no desenvolvimento de uma plataforma de questões online
-com a finalidade de ajudar os alunos na preparação para o enem.
+O projeto consiste no desenvolvimento de um painel para a administração de sites e sistemas usando o Laravel integrado com o AdminLTE.
 
 ## Tecnologias utilizadas
 
