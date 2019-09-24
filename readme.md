@@ -28,6 +28,8 @@ O projeto consiste no desenvolvimento de um painel para a administração de sit
 8. Após o pull e resolução de possíveis conflitos, fazer o merge para a branch **develop**.
 9. O código será então revisado e será feito o merge para a branch **master**, que é a branch de produção
 e que estará sendo usada no servidor no momento.
+10. Caso haja necessidade, executar o comando **php artisan storage:link** para criar um link
+simbólico de acesso aos arquivos e imagens.
 
 ## Autoria e contribuições
 

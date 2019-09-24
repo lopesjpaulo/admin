@@ -35,10 +35,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        /*Gate::define('update-news', function(User $user, News $news){
-            return $user->id == $news->user_id;
-        });*/
-
         $permissions = Permission::with(['roles'])->get();
         foreach($permissions as $permission){
             Gate::define($permission->title, function(User $user) use ($permission){

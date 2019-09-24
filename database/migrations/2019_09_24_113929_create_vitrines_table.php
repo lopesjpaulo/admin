@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateThemesTable extends Migration
+class CreateVitrinesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateThemesTable extends Migration
      */
     public function up()
     {
-        Schema::create('themes', function (Blueprint $table) {
+        Schema::create('vitrines', function (Blueprint $table) {
             $table->Increments('id');
-            $table->timestamps();
-            $table->string('title', 100);
-            $table->text('description')->nullable();
-            $table->string('file', 100)->nullable();
+            $table->dateTime('published_at');
+            $table->string('title', 200);
+            $table->string('link', 255);
+            $table->mediumText('description');
+            $table->string('file', 200)->nullable();
             $table->tinyInteger('status')->default('0');
-            $table->integer('discipline_id')->unsigned();
-            $table->foreign('discipline_id')->references('id')->on('disciplines')->onDelete('cascade');
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -33,6 +33,6 @@ class CreateThemesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('themes');
+        Schema::dropIfExists('vitrines');
     }
 }
