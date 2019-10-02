@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\App;
 
 class NewsController extends Controller
 {
-    private $news;
+    protected $news;
+    protected $title;
     /**
      * Create a new controller instance.
      *
@@ -23,7 +24,7 @@ class NewsController extends Controller
     public function __construct(News $news)
     {
         $this->news = $news;
-        //  $this->middleware('auth');
+        $this->title = "Notícias";
     }
 
     /**
@@ -34,8 +35,9 @@ class NewsController extends Controller
     public function index()
     {
         $news = $this->news->orderBy('id', 'desc')->paginate(10);
+        $data = ['lista' => $news, 'title' => $this->title];
 
-        return view('admin.news.index', compact('news'));
+        return view('admin.news.index')->with($data);
     }
 
     /**
@@ -45,7 +47,8 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('admin.news.form');
+        $data = ['title' => $this->title, 'subtitle' => 'Criar notícia'];
+        return view('admin.news.form')->with($data);
     }
 
     /**
@@ -69,7 +72,9 @@ class NewsController extends Controller
             }
         }
 
-        $this->news->create($dataForm);
+        $create = $this->news->create($dataForm);
+
+        if(!$create) return redirect('/admin/news')->with('fail', 'Houve um problema ao criar a notícia!');
 
         return redirect('/admin/news')->with('success', 'Notícia criada com sucesso!');
     }
@@ -96,8 +101,9 @@ class NewsController extends Controller
     public function edit($id)
     {
         $news = $this->news->find($id);
+        $data = ['lista' => $news, 'title' => $this->title, 'subtitle' => 'Editar notícia'];
 
-        return view('admin.news.form', compact('news'));
+        return view('admin.news.form')->with($data);
     }
 
     /**
@@ -126,11 +132,9 @@ class NewsController extends Controller
 
         $update = $news->update($dataForm);
 
-        if($update){
-            return redirect('/admin/news')->with('success', 'Notícia atualizada com sucesso!');
-        }else{
-            return redirect('admin/news')->with('fail', 'Houve um erro ao atualizar a notícia!');
-        }
+        if(!$update) return redirect('admin/news')->with('fail', 'Houve um erro ao atualizar a notícia!');
+
+        return redirect('/admin/news')->with('success', 'Notícia atualizada com sucesso!');
     }
 
     /**
@@ -141,12 +145,10 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        $news = $this->news->destroy($id);
+        $destroy = $this->news->destroy($id);
 
-        if($news){
-            return redirect('/admin/news')->with('success', 'Notícia excluída com sucesso!');
-        }else{
-            return redirect('admin/news')->with('fail', 'Houve um erro ao excluir a notícia!');
-        }
+        if(!$destroy) return redirect('admin/news')->with('fail', 'Houve um erro ao excluir a notícia!');
+
+        return redirect('/admin/news')->with('success', 'Notícia excluída com sucesso!');
     }
 }

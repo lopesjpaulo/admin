@@ -115,11 +115,6 @@ return [
             'icon' => 'home'
         ],
         [
-            'text' => 'Blog',
-            'url'  => 'admin/blog',
-            'can'  => 'view_news',
-        ],
-        [
             'text' => 'Vitrines',
             'url'  => 'admin/vitrines',
             'icon' => 'image'  
@@ -130,18 +125,8 @@ return [
             'icon' => 'newspaper-o'  
         ],
         [
-            'text' => 'Depoimentos',
-            'url'  => 'admin/depoiments',
-            'icon' => 'comments'  
-        ],
-        [
-            'text' => 'Perguntas frequentes',
-            'url'  => 'admin/answers',
-            'icon' => 'check-square'  
-        ],
-        [
             'text' => 'Contatos',
-            'url'  => 'admin/leads',
+            'url'  => 'admin/contacts',
             'icon' => 'envelope'  
         ],
         'GESTÃO',

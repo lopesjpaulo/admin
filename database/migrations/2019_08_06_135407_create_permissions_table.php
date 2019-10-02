@@ -17,8 +17,8 @@ class CreatePermissionsTable extends Migration
             $table->Increments('id');
             $table->string('title', 100);
             $table->text('description')->nullable();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('permission_role', function (Blueprint $table) {

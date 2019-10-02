@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVitrinesTable extends Migration
+class CreateLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateVitrinesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vitrines', function (Blueprint $table) {
+        Schema::create('logs', function (Blueprint $table) {
             $table->Increments('id');
-            $table->dateTime('published_at');
-            $table->string('title', 200);
-            $table->string('link', 255)->nullable();
-            $table->mediumText('description')->nullable();
-            $table->string('file', 200)->nullable();
-            $table->tinyInteger('status')->default('0');
+            $table->integer('register_id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('user_ip', 15);
+            $table->string('model', 20);
+            $table->string('url', 255);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +33,6 @@ class CreateVitrinesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vitrines');
+        Schema::dropIfExists('logs');
     }
 }

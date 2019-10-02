@@ -27,7 +27,7 @@ class VitrineFormRequest extends FormRequest
             'title' => 'required|max:255',
             'link' => 'max:255',
             'published_at' => 'required',
-            'image' => 'image|max:4096'
+            'image' => 'required|image|max:4096'
         ];
     }
 }

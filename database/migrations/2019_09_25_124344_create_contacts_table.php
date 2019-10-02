@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVitrinesTable extends Migration
+class CreateContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateVitrinesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vitrines', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->Increments('id');
-            $table->dateTime('published_at');
-            $table->string('title', 200);
-            $table->string('link', 255)->nullable();
-            $table->mediumText('description')->nullable();
-            $table->string('file', 200)->nullable();
-            $table->tinyInteger('status')->default('0');
+            $table->string('name', 255);
+            $table->string('email', 255)->nullable();
+            $table->string('phone', 14)->nullable();
+            $table->string('subject', 100)->nullable();
+            $table->mediumText('content')->nullable();
+            $table->tinyInteger('lido')->default('0');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +33,6 @@ class CreateVitrinesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vitrines');
+        Schema::dropIfExists('contacts');
     }
 }

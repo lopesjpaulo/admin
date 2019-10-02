@@ -23,13 +23,16 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
     Route::post('/news/{id}', 'NewsController@update');
 
     Route::resource('vitrines', 'VitrineController');
-    Route::post('/vitrines/[id]', 'VitrineController@update');
+    Route::post('/vitrines/{id}', 'VitrineController@update');
 
     Route::resource('users', 'UserController');
     Route::post('/users/{id}', 'UserController@update');
 
     Route::resource('roles', 'RoleController');
     Route::post('/roles/{id}', 'RoleController@update');
+
+    Route::resource('contacts', 'ContactController');
+    Route::post('/contacts/{id}', 'ContactController@update');
 });
 
 Auth::routes();

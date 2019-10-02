@@ -96,7 +96,9 @@
                             </span>
                         @enderror
                         @if(isset($news->file))
-                            <img class="img-responsive pad" src="{{ asset("storage/news/{$news->file}") }}" alt="{{ $news->title }}">
+                            <div class="box-body">
+                                <img class="img-panel img-responsive pad" src="{{ asset("storage/news/{$news->file}") }}" alt="{{ $news->title }}">
+                            </div>
                         @endif
                     </div>
                 </div>

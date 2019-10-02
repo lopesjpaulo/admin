@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\VitrineFormRequest;
+use App\Http\Requests\VitrineUpdateFormRequest;
 use App\Models\Vitrine;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class VitrineController extends Controller
@@ -66,11 +66,9 @@ class VitrineController extends Controller
 
         $vitrine = $this->vitrine->create($dataForm);
 
-        if($vitrine){
-            return redirect('/admin/vitrines')->with('success', 'Usuário criado com sucesso!');
-        }else {
-            return redirect('/admin/vitrines')->with('fail', 'Falha ao criar a notícia!');
-        }
+        if(!$vitrine) return redirect('/admin/vitrines')->with('fail', 'Falha ao criar a notícia!');
+
+        return redirect('/admin/vitrines')->with('success', 'Usuário criado com sucesso!');
     }
 
     /**
@@ -92,7 +90,7 @@ class VitrineController extends Controller
      */
     public function edit($id)
     {
-        $vitrine = $this->vitrine->find($id);
+        $vitrine = $this->vitrine->findOrFail($id);
 
         $data = ['vitrine' => $vitrine, 'title' => $this->title, 'subtitle' => 'Editar vitrine'];
 
@@ -106,9 +104,28 @@ class VitrineController extends Controller
      * @param  \App\Models\Vitrine  $vitrine
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(VitrineUpdateFormRequest $request, $id)
     {
-        //
+        $vitrine = $this->vitrine->findOrFail($id);
+
+        $dataForm = $request->all();
+        $dataForm['published_at'] = convertdata_todb($dataForm['published_at']);
+
+        if(valid_file($request))
+        {
+            $upload = upload($request, 'vitrines');
+
+            if($upload){
+                $dataForm['file'] = $upload;
+                unset($dataForm['image']);
+            }
+        }
+
+        $update = $vitrine->update($dataForm);
+
+        if(!$update) return redirect('/admin/vitrines')->with('fail', 'Houve um erro ao atualizar a vitrine!');
+
+        return redirect('/admin/vitrines')->with('success', 'Vitrine atualizada com sucesso!');
     }
 
     /**
@@ -119,6 +136,10 @@ class VitrineController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroy = $this->vitrine->destroy($id);
+
+        if(!$destroy) return redirect('/admin/vitrines')->with('fail', 'Houve um erro ao excluir a vitrine!');
+
+        return redirect('/admin/vitrines')->with('success', 'Vitrine excluída com sucesso!');
     }
 }

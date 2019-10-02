@@ -1,14 +1,14 @@
 @extends('adminlte::page')
 
-@section('title', 'Notícias')
+@section('title', $title)
 
 @section('content_header')
 
-    <h1>Notícias</h1>
+    <h1>{{$title}}</h1>
 
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-address-card"></i> Home</a></li>
-      <li class="active">Notícias</li>
+      <li class="active">{{$title}}</li>
   </ol>
 
 @stop
@@ -37,18 +37,18 @@
         </tr>
         </thead>
         <tbody>
-          @foreach ($news as $new)
-            @can('view_news', $new)
+          @foreach ($lista as $item)
+            @can('view_news', $item)
             <tr>
-              <td>{{ convertdata_tosite($new->created_at) }}</td>
-              <td>{{ convertdata_tosite($new->published_at) }}</td>
-              <td>{{ $new->title }}</td>
-              <td>{{ $new->author }}</td>
+              <td>{{ convertdata_tosite($item->created_at) }}</td>
+              <td>{{ convertdata_tosite($item->published_at) }}</td>
+              <td>{{ $item->title }}</td>
+              <td>{{ $item->author }}</td>
               <td class="action">
-                @can('edit_news', $new)
-                <a href="{{ route('news.edit', $new->id) }}" class="btn btn-primary">Editar</a>
+                @can('edit_news', $item)
+                <a href="{{ route('news.edit', $item->id) }}" class="btn btn-primary">Editar</a>
                 @endcan
-                <form action="{{ route('news.destroy', $new->id)}}" method="post">
+                <form action="{{ route('news.destroy', $item->id)}}" method="post">
                   @csrf
                   @method('DELETE')
                   <button class="btn btn-danger" type="submit">Delete</button>
@@ -60,7 +60,7 @@
         </tbody>
       </table>
 
-      {!! $news->links() !!}
+      {!! $lista->links() !!}
 
     </div>
     <!-- /.box-body -->

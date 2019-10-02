@@ -13,7 +13,7 @@
 
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-address-card"></i> Home</a></li>
-        <li><a href="{{ route('users.index') }}">{{$title}}</a></li>
+        <li><a href="{{ route('vitrines.index') }}">{{$title}}</a></li>
         <li class="active">{{$subtitle}}</li>
     </ol>
 
@@ -88,7 +88,7 @@
                             </span>
                             @enderror
                             @if(isset($vitrine->file))
-                                <img class="img-responsive pad" src="{{ asset("storage/vitrines/{$vitrine->file}") }}" alt="{{ $vitrine->title }}">
+                                <img class="img-panel img-responsive pad" src="{{ asset("storage/vitrines/{$vitrine->file}") }}" alt="{{ $vitrine->title }}">
                             @endif
                         </div>
                     </div>

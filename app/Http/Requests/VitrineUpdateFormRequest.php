@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ThemeFormRequest extends FormRequest
+class VitrineUpdateFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,10 @@ class ThemeFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:100',
-            'description' => 'required',
-            'discipline_id' => 'required',
-            'image' => 'image|max:512'
+            'title' => 'required|max:255',
+            'link' => 'max:255',
+            'published_at' => 'required',
+            'image' => 'image|max:4096'
         ];
     }
 }
