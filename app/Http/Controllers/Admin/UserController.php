@@ -87,7 +87,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = $this->user->with(['roles'])->find($id);
+        $user = $this->user->with('roles')->find($id);
         $roles = Role::all();
         $data = ['user' => $user, 'roles' => $roles, 'title' => $this->title, 'subtitle' => 'Editar usuário'];
 

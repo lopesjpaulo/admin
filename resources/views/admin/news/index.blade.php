@@ -46,12 +46,14 @@
               <td>{{ $item->author }}</td>
               <td class="action">
                 @can('edit_news', $item)
-                <a href="{{ route('news.edit', $item->id) }}" class="btn btn-primary">Editar</a>
+                  <a href="{{ route('news.edit', $item->id) }}" class="btn btn-primary">Editar</a>
                 @endcan
                 <form action="{{ route('news.destroy', $item->id)}}" method="post">
                   @csrf
+                  @can('delete_news', $item)
                   @method('DELETE')
-                  <button class="btn btn-danger" type="submit">Delete</button>
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                  @endcan
                 </form>
               </td>
             </tr>

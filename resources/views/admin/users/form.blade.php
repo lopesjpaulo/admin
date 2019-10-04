@@ -80,7 +80,7 @@
                             <label for="inputRole">Grupos</label>
                             <select class="form-control select2" name="role_id" id="inputRole" style="width: 100%;">
                                 @foreach ($roles as $item)
-                                    <option value="{{ $item->id }}" {{ (isset($user) && isset($user->roles->id)) ? (($item->id == $user->roles->id) ? 'selected' : '') : '' }}>{{ $item->title }}</option>
+                                    <option value="{{ $item->id }}" {{ ($item->id == $user->roles[0]->id) ? 'selected' : '' }}>{{ $item->title }}</option>
                                 @endforeach
                             </select>
                         </div>

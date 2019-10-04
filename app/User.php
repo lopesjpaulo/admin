@@ -58,10 +58,7 @@ class User extends Authenticatable
     public function hasAnyRoles($roles)
     {
         if(is_array($roles) || is_object($roles)){
-            foreach($roles as $role)
-            {
-                return $this->roles->contains('title', $role->title);
-            }
+            return !! $this->roles->intersect($this->roles)->count();
         }
 
         return $this->roles->contains('title', $roles);

@@ -9,7 +9,7 @@ use App\Policies\NewsPolicy;
 use App\Policies\QuestionPolicy;
 use App\Policies\UserPolicy;
 use App\User;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -31,15 +31,22 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Gate $gate)
     {
-        $this->registerPolicies();
+        $this->registerPolicies($gate);
 
-        $permissions = Permission::with(['roles'])->get();
+        $permissions = Permission::with('roles')->get();
+
         foreach($permissions as $permission){
-            Gate::define($permission->title, function(User $user) use ($permission){
+            $gate->define($permission->title, function(User $user) use ($permission){
                 return $user->hasPermission($permission);
             });
         }
+
+        $gate->before(function (User $user, $hability)
+        {
+            if ($user->hasAnyRoles('Administrador'))
+                return true;
+        });
     }
 }
