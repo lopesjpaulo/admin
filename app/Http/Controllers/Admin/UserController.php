@@ -58,8 +58,8 @@ class UserController extends Controller
 
         $user = $this->user->create($dataForm);
 
-        $role = Role::find($dataForm['role_id']);
-        $user->roles()->attach($role);
+        $roles = Role::find($dataForm['roles']);
+        $user->roles()->attach($roles);
 
         if($user && $role){
             return redirect('/admin/users')->with('success', 'Usuário criado com sucesso!');
@@ -88,8 +88,19 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = $this->user->with('roles')->find($id);
-        $roles = Role::all();
-        $data = ['user' => $user, 'roles' => $roles, 'title' => $this->title, 'subtitle' => 'Editar usuário'];
+        $roles = Role::all('id', 'title');
+
+        $formatedRoles = array();
+        foreach ($roles as $role) {
+            $formatedRoles[$role->id] = $role->title;
+        }        
+         
+        $selectedRoles = array(); 
+        foreach ($user->roles as $role) {
+            $selectedRoles[] = $role->id;
+        }
+
+        $data = ['user' => $user, 'roles' => $formatedRoles, 'selectedRoles' => $selectedRoles, 'title' => $this->title, 'subtitle' => 'Editar usuário'];
 
         return view('admin.users.form')->with($data);
     }
@@ -110,9 +121,12 @@ class UserController extends Controller
             unset($dataForm['password']);
         }
 
-        $role = Role::find($dataForm['role_id']);
         $user->roles()->detach();
-        $user->roles()->attach($role);
+
+        if (isset($dataForm['roles']) && !is_null($dataForm['roles'])) {
+            $role = Role::find($dataForm['roles']);
+            $user->roles()->attach($role);
+        }
 
         if($user->update($dataForm)){
             return redirect('/admin/users')->with('success', 'Usuário editado com sucesso!');

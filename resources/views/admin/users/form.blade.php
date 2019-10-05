@@ -77,12 +77,9 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <label for="inputRole">Grupos</label>
-                            <select class="form-control select2" name="role_id" id="inputRole" style="width: 100%;">
-                                @foreach ($roles as $item)
-                                    <option value="{{ $item->id }}" {{ ($item->id == $user->roles[0]->id) ? 'selected' : '' }}>{{ $item->title }}</option>
-                                @endforeach
-                            </select>
+
+                            {{ Form::label('roles', 'Grupos') }}
+                            {{ Form::select('roles', $roles, $selectedRoles, array('class'=>'form-control select2', 'multiple'=>true, 'name'=>'roles[]')) }}
                         </div>
                     </div>
                 </div>

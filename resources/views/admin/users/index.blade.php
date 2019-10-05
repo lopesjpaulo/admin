@@ -32,7 +32,7 @@
                     <th>Data de criação</th>
                     <th>Nome</th>
                     <th>E-mail</th>
-                    <th>Grupo</th>
+                    <th>Grupos</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -43,7 +43,7 @@
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->email }}</td>
                         <td>@foreach($item->roles as $role)
-                                {{ $role->title.' ' }}
+                                {{ '"'.$role->title.'" ' }}
                             @endforeach
                         </td>
                         <td class="action">

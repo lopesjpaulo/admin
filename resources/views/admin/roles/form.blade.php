@@ -48,6 +48,16 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+
+                            {{ Form::label('permissions', 'Permissões') }}
+                            {{ Form::select('permissions', $permissions, $selectedPermissions, array('class'=>'form-control select2', 'multiple'=>true, 'name'=>'permissions[]')) }}
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- /.box-body -->
 
