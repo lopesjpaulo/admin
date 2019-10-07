@@ -117,33 +117,39 @@ return [
         [
             'text' => 'Vitrines',
             'url'  => 'admin/vitrines',
-            'icon' => 'image'  
+            'icon' => 'image',
+            'can'  => 'read_vitrines'  
         ],
         [
             'text' => 'Notícias',
             'url'  => 'admin/news',
-            'icon' => 'newspaper-o'  
+            'icon' => 'newspaper-o',
+            'can'  => 'read_news'  
         ],
         [
             'text' => 'Contatos',
             'url'  => 'admin/contacts',
-            'icon' => 'envelope'  
+            'icon' => 'envelope',
+            'can'  => 'read_contacts'  
         ],
         'GESTÃO',
         [
             'text' => 'Usuários',
             'url'  => 'admin/users',
-            'icon' => 'user'
+            'icon' => 'user',
+            'can'  => 'read_users'
         ],
         [
             'text' => 'Grupos',
             'url'  => 'admin/roles',
-            'icon' => 'group'
+            'icon' => 'group',
+            'can'  => 'read_roles'
         ],
         [
             'text' => 'Permissões',
             'url'  => 'admin/permissions',
-            'icon' => 'unlock'
+            'icon' => 'unlock',
+            'can'  => 'read_permissions'
         ]
     ],
 

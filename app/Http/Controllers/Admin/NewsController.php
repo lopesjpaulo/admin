@@ -16,6 +16,7 @@ class NewsController extends Controller
 {
     protected $news;
     protected $title;
+    protected $module;
     /**
      * Create a new controller instance.
      *
@@ -25,6 +26,7 @@ class NewsController extends Controller
     {
         $this->news = $news;
         $this->title = "Notícias";
+        $this->module = "news";
     }
 
     /**
@@ -35,7 +37,7 @@ class NewsController extends Controller
     public function index()
     {
         $news = $this->news->orderBy('id', 'desc')->paginate(10);
-        $data = ['lista' => $news, 'title' => $this->title];
+        $data = ['lista' => $news, 'title' => $this->title, 'module' => $this->module];
 
         return view('admin.news.index')->with($data);
     }

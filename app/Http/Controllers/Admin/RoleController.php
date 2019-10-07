@@ -41,7 +41,13 @@ class RoleController extends Controller
     {
         $permissions = Permission::all();
 
-        return view('admin.roles.form')->with('permissions', $permissions)->with('title', $this->title)->with('subtitle', 'Adicionar grupo');
+        $formatedPermissions = array();
+        foreach ($permissions as $permission) {
+            $formatedPermissions[$permission->id] = $permission->title;
+        }        
+         
+
+        return view('admin.roles.form')->with('permissions', $formatedPermissions)->with('title', $this->title)->with('subtitle', 'Adicionar grupo');
     }
 
     /**
@@ -53,10 +59,17 @@ class RoleController extends Controller
     public function store(RoleFormRequest $request)
     {
         $dataForm = $request->all();
+
+        unset($dataForm['permissions']);
+
         $role = $this->role->create($dataForm);
 
-        $permissions = Permission::find($dataForm['permissions']);
-        $role->permissions()->attach($permissions);
+        $dataForm = $request->all();
+
+        if (isset($dataForm['permissions']) && !is_null($dataForm['permissions'])) {
+            $permissions = Permission::find($dataForm['permissions']);
+            $role->permissions()->attach($permissions);
+        }
 
         if($role){
             return redirect('/admin/roles')->with('success', 'Grupo criado com sucesso!');
@@ -121,6 +134,8 @@ class RoleController extends Controller
             $permissions = Permission::find($dataForm['permissions']);
             $role->permissions()->attach($permissions);
         }
+
+        unset($dataForm['permissions']);
 
         if($role->update($dataForm)){
             return redirect('/admin/roles')->with('success', 'Grupo alterado com sucesso!');

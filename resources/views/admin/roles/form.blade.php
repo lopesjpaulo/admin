@@ -54,7 +54,7 @@
                         <div class="form-group">
 
                             {{ Form::label('permissions', 'Permissões') }}
-                            {{ Form::select('permissions', $permissions, $selectedPermissions, array('class'=>'form-control select2', 'multiple'=>true, 'name'=>'permissions[]')) }}
+                            {{ Form::select('permissions', $permissions, isset($selectedPermissions) ? $selectedPermissions : NULL, array('class'=>'form-control select2', 'multiple'=>true, 'name'=>'permissions[]')) }}
                         </div>
                     </div>
                 </div>

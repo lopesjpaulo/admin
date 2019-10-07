@@ -41,14 +41,22 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group @error('published_at') has-error @enderror">
-                        <label for="inputData">Data de publicação</label>
-                        <input type="text" name="published_at" class="form-control datepicker" id="inputData" placeholder="" value="{{ isset($news) ? \Carbon\Carbon::parse($news->published_at)->format('d/m/Y') : old('published_at') }}">
-                        @error('published_at')
+                        <label>Data de publicação</label>
+
+                        <div class="input-group date">
+                          <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                          </div>
+                          <input type="text" name="published_at" class="form-control datepicker" id="inputData" placeholder="" value="{{ isset($news) ? \Carbon\Carbon::parse($news->published_at)->format('d/m/Y') : old('published_at') }}">
+
+                          @error('published_at')
                             <span class="help-block">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
-                    </div>
+                          @enderror
+                        </div>
+                        <!-- /.input group -->
+                      </div>
                 </div>
             </div>
             <div class="row">
@@ -118,4 +126,8 @@
     <script src="{{ asset('node_modules/bootstrap3-wysihtml5-npm/dist/bootstrap3-wysihtml5.all.min.js') }}"></script>
     <script src="{{ asset('node_modules/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('node_modules/ckfinder/ckfinder.js') }}"></script>
+
+    <script>
+        $('.datepicker').datepicker();
+    </script>
 @stop

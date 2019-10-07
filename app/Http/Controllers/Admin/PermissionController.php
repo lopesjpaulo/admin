@@ -38,7 +38,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('admin.permission.form')->with('title', $this->title)->with('subtitle', 'Adicionar Permission');
+        return view('admin.permissions.form')->with('title', $this->title)->with('subtitle', 'Adicionar Permission');
     }
 
     /**
