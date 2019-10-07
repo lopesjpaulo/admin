@@ -79,7 +79,7 @@
                         <div class="form-group">
 
                             {{ Form::label('roles', 'Grupos') }}
-                            {{ Form::select('roles', $roles, $selectedRoles, array('class'=>'form-control select2', 'multiple'=>true, 'name'=>'roles[]')) }}
+                            {{ Form::select('roles', $roles, (isset($selectedRoles) && is_null($selectedRoles)) ? $selectedRoles : null, array('class'=>'form-control select2', 'multiple'=>true, 'name'=>'roles[]')) }}
                         </div>
                     </div>
                 </div>

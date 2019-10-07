@@ -14,22 +14,32 @@ class PermissionsTableSeeder extends Seeder
     {
         Permission::create(
             [
-                'title' => 'view_news',
+                'title'      => 'create_news',
+                'module_id'  => 1,
                 'created_at' => now(),
                 'updated_at' => now()
-            ],
+            ]
+        );
+        Permission::create(
             [
-                'title' => 'create_news',
+                'title'      => 'read_news',
+                'module_id'  => 1,
                 'created_at' => now(),
                 'updated_at' => now()
-            ],
+            ]
+        );
+        Permission::create(
             [
-                'title' => 'edit_news',
+                'title'      => 'update_news',
+                'module_id'  => 1,
                 'created_at' => now(),
                 'updated_at' => now()
-            ],
+            ]
+        );
+        Permission::create(
             [
-                'title' => 'delete_news',
+                'title'      => 'delete_news',
+                'module_id'  => 1,
                 'created_at' => now(),
                 'updated_at' => now()
             ]

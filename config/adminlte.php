@@ -146,6 +146,12 @@ return [
             'can'  => 'read_roles'
         ],
         [
+            'text' => 'Módulos',
+            'url'  => 'admin/modules',
+            'icon' => 'group',
+            'can'  => 'read_modules'
+        ],
+        [
             'text' => 'Permissões',
             'url'  => 'admin/permissions',
             'icon' => 'unlock',

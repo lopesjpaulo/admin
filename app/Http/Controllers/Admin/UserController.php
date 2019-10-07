@@ -58,8 +58,10 @@ class UserController extends Controller
 
         $user = $this->user->create($dataForm);
 
-        $roles = Role::find($dataForm['roles']);
-        $user->roles()->attach($roles);
+        if (isset($dataForm['roles']) && is_null($dataForm['roles'])) {
+            $roles = Role::find($dataForm['roles']);
+            $user->roles()->attach($roles);
+        }
 
         if($user && $role){
             return redirect('/admin/users')->with('success', 'Usuário criado com sucesso!');

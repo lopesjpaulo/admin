@@ -31,6 +31,9 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
     Route::resource('roles', 'RoleController');
     Route::post('/roles/{id}', 'RoleController@update');
 
+    Route::resource('modules', 'ModuleController');
+    Route::post('/modules/{id}', 'ModuleController@update');
+
     Route::resource('permissions', 'PermissionController');
     Route::post('/permissions/{id}', 'PermissionController@update');
 

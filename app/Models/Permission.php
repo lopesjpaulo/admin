@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Role;
+use App\Models\Module;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Permission extends Model
@@ -15,5 +16,10 @@ class Permission extends Model
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function module()
+    {
+        return $this->$this->belongsTo(Module::class);
     }
 }
