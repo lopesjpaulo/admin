@@ -16,7 +16,9 @@
 @section('content')
     <div class="box">
         <div class="box-header">
-            <a href="{{ route('contacts.create') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Adicionar</a>
+            @can("create_".$module, App\Contact::class)
+                <a href="{{ route('contacts.create') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Adicionar</a>
+            @endcan
         </div>
         @if(session()->has('success'))
             <div class="box-body">
@@ -50,7 +52,9 @@
                             <form action="{{ route('contacts.destroy', $item->id)}}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger" type="submit">Delete</button>
+                                @can("delete_".$module, App\Contact::class)
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                @endcan
                             </form>
                         </td>
                     </tr>

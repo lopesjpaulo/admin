@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\RoleFormRequest;
 use App\Models\Role;
 use App\Models\Permission;
+use App\Models\Module;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -39,15 +40,16 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::all();
+        $permissions = $this->role->permissions;
 
         $formatedPermissions = array();
         foreach ($permissions as $permission) {
             $formatedPermissions[$permission->id] = $permission->title;
         }        
          
+        $modules = Module::orderBy('id', 'desc')->with(['permissions'])->paginate(10);
 
-        return view('admin.roles.form')->with('permissions', $formatedPermissions)->with('title', $this->title)->with('subtitle', 'Adicionar grupo');
+        return view('admin.roles.form')->with('permissions', $formatedPermissions)->with('modules', $modules)->with('title', $this->title)->with('subtitle', 'Adicionar grupo');
     }
 
     /**
@@ -99,19 +101,16 @@ class RoleController extends Controller
     {
         $role = $this->role->find($id);
 
-        $permissions = Permission::all('id', 'title');
+        $permissions = $role->permissions;
 
         $formatedPermissions = array();
         foreach ($permissions as $permission) {
             $formatedPermissions[$permission->id] = $permission->title;
         }        
-         
-        $selectedPermissions = array(); 
-        foreach ($role->permissions as $permission) {
-            $selectedPermissions[] = $permission->id;
-        }
 
-        $data = ['role' => $role, 'permissions' => $formatedPermissions, 'selectedPermissions' => $selectedPermissions, 'title' => $this->title, 'subtitle' => 'Editar grupo'];
+        $modules = Module::orderBy('id', 'desc')->with(['permissions'])->paginate(10);
+
+        $data = ['role' => $role, 'permissions' => $formatedPermissions, 'modules' => $modules, 'title' => $this->title, 'subtitle' => 'Editar grupo'];
 
         return view('admin.roles.form')->with($data);
     }

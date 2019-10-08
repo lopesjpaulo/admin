@@ -59,7 +59,9 @@ class User extends Authenticatable
     {
         if(is_array($roles) || is_object($roles)){
             foreach ($roles as $role) {
-                return $this->roles->contains('title', $role->title);
+                if ($this->roles->contains('title', $role->title)) {
+                    return true;
+                }
             }
         }
 

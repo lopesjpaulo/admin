@@ -49,16 +49,30 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
+                <table class="table table-bordered table-striped data-table">
+                    <caption><h2>Módulos deste grupo e suas permissões</h2></caption>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Adicionar</th>
+                            <th>Acessar</th>
+                            <th>Atualizar</th>
+                            <th>Deletar</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($modules as $module)
+                            <tr>
+                                <td>{{ $module->title }}</td>
+                                <td>{{ Form::checkbox('permissions[]', $module->permissions[0]->id, (isset($permissions[$module->permissions[0]->id]) &&!is_null($permissions[$module->permissions[0]->id])) ? true : false) }}</td>
+                                <td>{{ Form::checkbox('permissions[]', $module->permissions[1]->id, (isset($permissions[$module->permissions[1]->id]) &&!is_null($permissions[$module->permissions[1]->id])) ? true : false) }}</td>
+                                <td>{{ Form::checkbox('permissions[]', $module->permissions[2]->id, (isset($permissions[$module->permissions[2]->id]) &&!is_null($permissions[$module->permissions[2]->id])) ? true : false) }}</td>
+                                <td>{{ Form::checkbox('permissions[]', $module->permissions[3]->id, (isset($permissions[$module->permissions[3]->id]) &&!is_null($permissions[$module->permissions[3]->id])) ? true : false) }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
 
-                            {{ Form::label('permissions', 'Permissões') }}
-                            {{ Form::select('permissions', $permissions, isset($selectedPermissions) ? $selectedPermissions : NULL, array('class'=>'form-control select2', 'multiple'=>true, 'name'=>'permissions[]')) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- /.box-body -->
 
             <div class="box-footer">

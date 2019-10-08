@@ -28,34 +28,29 @@
         <div class="box-body">
             <table class="table table-bordered table-striped data-table">
                 <thead>
-                <tr>
-                    <th>Data de criação</th>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Permissões</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>Data de criação</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach ($roles as $item)
-                    <tr>
-                        <td>{{ convertdata_tosite($item->created_at) }}</td>
-                        <td>{{ $item->title }}</td>
-                        <td>{{ $item->description }}</td>
-                        <td>@foreach($item->permissions as $permission)
-                                {{ '"'.$permission->title.'" ' }}
-                            @endforeach
-                        </td>
-                        <td class="action">
-                            <a href="{{ route('roles.edit', $item->id) }}" class="btn btn-primary">Editar</a>
-                            <form action="{{ route('roles.destroy', $item->id)}}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger" type="submit">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
+                    @foreach ($roles as $item)
+                        <tr>
+                            <td>{{ convertdata_tosite($item->created_at) }}</td>
+                            <td>{{ $item->title }}</td>
+                            <td>{{ $item->description }}</td>
+                            <td class="action">
+                                <a href="{{ route('roles.edit', $item->id) }}" class="btn btn-primary">Editar</a>
+                                <form action="{{ route('roles.destroy', $item->id)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
 

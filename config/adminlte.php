@@ -150,12 +150,6 @@ return [
             'url'  => 'admin/modules',
             'icon' => 'group',
             'can'  => 'read_modules'
-        ],
-        [
-            'text' => 'Permissões',
-            'url'  => 'admin/permissions',
-            'icon' => 'unlock',
-            'can'  => 'read_permissions'
         ]
     ],
 

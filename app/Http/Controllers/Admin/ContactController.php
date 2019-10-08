@@ -12,11 +12,13 @@ class ContactController extends Controller
 {
     protected $contact;
     protected $title;
+    protected $module;
 
     public function __construct(Contact $contact)
     {
         $this->contact = $contact;
-        $this->title = "Contatos";
+        $this->title   = "Contatos";
+        $this->module  = 'contacts';
     }
 
     /**
@@ -27,7 +29,7 @@ class ContactController extends Controller
     public function index()
     {
         $lista = $this->contact->orderBy('id', 'desc')->paginate(20);
-        $data = ['lista' => $lista, 'title' => $this->title];
+        $data = ['lista' => $lista, 'title' => $this->title, 'module' => $this->module];
 
         return view('admin.contacts.index')->with($data);
     }
