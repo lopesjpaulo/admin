@@ -97,7 +97,7 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RoleFormRequest $request, $id)
+    public function update(ModuleFormRequest $request, $id)
     {
         $dataForm = $request->all();
         $module = $this->module->find($id);

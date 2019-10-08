@@ -19,7 +19,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">{{ $subtitle }}</h3>
         </div>
-        <form role="form" method="POST" action="{{route('modules.store')}}" enctype="multipart/form-data">
+        <form role="form" method="POST" action="{{ isset($module) ? route('modules.update', $module->id) : route('modules.store')}}" enctype="multipart/form-data">
             {!! csrf_field() !!}
             <div class="box-body">
                 <div class="row">
