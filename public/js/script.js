@@ -17,6 +17,10 @@ $(function () {
 
     $(".amount").maskMoney({symbol:'R$ ', thousands:'.', decimal:','});
 
+    if($(".filetree")[0]){
+        $(".file-tree").filetree();
+    }
+
     if($(".datepicker")[0]){
         $(".datepicker").datepicker({
             format: 'dd/mm/yyyy'
@@ -29,47 +33,114 @@ $(function () {
         $("#my-select").multiSelect();
     }
 
-    /*** FUNCTIONS ***/
-    if($(".theme-select")[0]){
-        $(".theme-select").on('change', function (e) {
-            $(".type-select").empty();
+    if($(".categoria-select")[0]){
+        $(".categoria-select").on('change', function (e) {
+            $(".subcategoria-select").empty();
             $.ajax({
                 type: "POST",
-                url: "/andrecury/public/admin/questions/findType",
+                url: "/docfacil/public/admin/categorias/findSubcategoria",
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data: {theme: $(".theme-select").find(':selected').val()},
+                data: {categoria: $(".categoria-select").find(':selected').val()},
                 success: function (data) {
+                    $(".subcategoria-select").append(new Option('Selecione subcategoria', 0));
                     data.forEach(function (valor) {
-                       $(".type-select").append(new Option(valor.title, valor.id));
+                        $(".subcategoria-select").append(new Option(valor.title, valor.id));
                     });
                 }
             });
         });
     }
 
-    if($(".theme-questions")[0]){
-        $(".theme-questions").on('change', function (e) {
-            $("#my-select").multiSelect('refresh');
+    if($(".organizacao-select")[0]){
+        $(".organizacao-select").on('change', function (e) {
+            $(".catorganizacao-select").empty();
             $.ajax({
                 type: "POST",
-                url: "/andrecury/public/admin/tests/findQuestion",
+                url: "/docfacil/public/admin/organizacoes/findCatorganizacao",
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data: {theme: $(".theme-questions").find(':selected').val()},
+                data: {organizacao: $(".organizacao-select").find(':selected').val()},
                 success: function (data) {
-                    console.log(data);
+                    $(".catorganizacao-select").append(new Option('Selecione categoria de organização', 0));
                     data.forEach(function (valor) {
-                        $("#my-select").multiSelect('addOption', { value: valor.id, text: (valor.title.replace(/<[^>]*>?/gm, '')) });
-                        //$("#my-select").append(new Option(valor.title.replace(/<[^>]*>?/gm, ''), valor.id));
+                        $(".catorganizacao-select").append(new Option(valor.title, valor.id));
                     });
                 }
             });
+        });
+    }
+
+    if($(".categoria-folder")[0]){
+        $(".categoria-folder").on('click', function (e) {
+            var categoria_id = $(this).attr('data-id');
+            window.location.href = "/docfacil/public/admin/folder/categoria/"+categoria_id;
+        });
+    }
+
+    if($(".subcategoria-folder")[0]){
+        $(".subcategoria-folder").on('click', function (e) {
+            var subcategoria_id = $(this).attr('data-id');
+            window.location.href = "/docfacil/public/admin/folder/subcategoria/"+subcategoria_id;
+        });
+    }
+
+    /*if($(".file-folder")[0]){
+        $(".file-folder").on('click', function (e) {
+            var file_id = $(this).attr('data-id');
+            window.location.href = "/docfacil/public/admin/folder/subcategoria/"+subcategoria_id;
+        });
+    }*/
+
+    /*if($(".categoria-folder")[0]){
+        $(".categoria-folder").on('click', function (e) {
+           var categoria_id = $(this).attr('data-id');
+           var folder = $(this);
+           $.ajax({
+               type: "POST",
+               url: "/docfacil/public/admin/categorias/findSubcategoria",
+               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+               data: {categoria: categoria_id},
+               success: function (data) {
+                   data.forEach(function (valor) {
+                       console.log($(folder));
+                       $(folder).parent().children().eq(1).append(
+                           "<li class='folder-root closed'>"+
+                           "<a href='#' class='subcategoria-folder' data-id='"+valor.id+"'>"+valor.title+"</a>"+
+                           "<ul></ul>"+
+                           "</li>"
+                       );
+                   });
+               }
+           });
+        });
+    }*/
+
+    if($(".subcategoria-folder")[0]){
+        $(".subcategoria-folder").on('click', function (e) {
+           var subcategoria_id = $(this).attr('data-id');
+           var folder = $(this);
+           $.ajax({
+               type: "POST",
+               url: "/docfacil/public/admin/categorias/findFiles",
+               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+               data: {subcategoria_id: subcategoria_id},
+               success: function (data) {
+                   data.forEach(function (valor) {
+                       $(folder).parent().children().eq(1).append(
+                           "<li>"+
+                           "<a href='#' data-id='"+valor.id+"'>"+valor.title+"</a>"+
+                           "<ul></ul>"+
+                           "</li>"
+                       );
+                   });
+               }
+           });
         });
     }
 
     $('.conteudo').each(function (e) {
         var editor = CKEDITOR.replace( this.id, {
-            filebrowserBrowseUrl: 'http://localhost/admin/public/node_modules/ckfinder/ckfinder.html',
-            filebrowserUploadUrl: 'http://localhost/admin/public/node_modules/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+            filebrowserBrowseUrl: 'http://localhost/docfacil/public/node_modules/ckfinder/ckfinder.html',
+            filebrowserUploadUrl: 'http://localhost/docfacil/public/node_modules/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
         });
         CKFinder.setupCKEditor( editor , 'ckfinder/');
     })

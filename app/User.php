@@ -3,6 +3,9 @@
 namespace App;
 
 use App\Models\Attendance;
+use App\Models\File;
+use App\Models\Log;
+use App\Models\Organizacao;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Notifications\Notifiable;
@@ -45,9 +48,19 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
-    public function attendance()
+    public function organizations()
     {
-        return $this->hasOne(Attendance::class);
+        return $this->belongsToMany(Organizacao::class, 'users_organizations');
+    }
+
+    public function files()
+    {
+        return $this->belongsToMany(File::class, 'users_files');
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(Log::class);
     }
 
     public function hasPermission(Permission $permission)
@@ -57,12 +70,17 @@ class User extends Authenticatable
 
     public function hasAnyRoles($roles)
     {
+        $result = false;
+
         if(is_array($roles) || is_object($roles)){
-            foreach ($roles as $role) {
-                return $this->roles->contains('title', $role->title);
+            foreach($roles as $role)
+            {
+                if($this->roles->contains('title', $role->title)) {
+                    $result = true;
+                };
             }
         }
 
-        return $this->roles->contains('title', $roles);
+        return $result;
     }
 }

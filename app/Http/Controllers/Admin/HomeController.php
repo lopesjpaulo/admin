@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $permission = Permission::find(6);
+
+        //dd($permission->roles);
+
+        //dd(Auth::user()->hasPermission($permission));
+
         return view('admin.home.home');
     }
 }

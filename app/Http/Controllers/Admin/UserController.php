@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UserFormRequest;
+use App\Models\Organizacao;
 use App\Models\Role;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -27,7 +29,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->user->orderBy('id', 'desc')->with(['roles'])->paginate(10);
+        if(count(Auth::user()->organizations) > 0) {
+            $where = [];
+
+            array_push($where, ['organizacaos.id', '=',  Auth::user()->organizations[0]->id]);
+
+            $users = $this->user->whereHas('organizations', function ($q) use ($where) {
+                $q->where($where);
+            })->orderBy('id', 'desc')->with(['roles'])->paginate(10);
+        } else {
+            $users = $this->user->orderBy('id', 'desc')->with(['roles'])->paginate(10);
+        }
+
         $data = ['users' => $users, 'title' => $this->title];
 
         return view('admin.users.index')->with($data);
@@ -40,9 +53,17 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
+        if(count(Auth::user()->organizations) > 0) {
+            $roles = Role::where('id', 3)->get();
+            $organizations = Organizacao::where('id', Auth::user()->organizations[0]->id)->get();
+        } else {
+            $roles = Role::all();
+            $organizations = Organizacao::all();
+        }
 
-        return view('admin.users.form')->with('roles', $roles)->with('title', $this->title)->with('subtitle', 'Adicionar usuário');
+        $data = ['roles' => $roles, 'organizations' => $organizations, 'title' => $this->title, 'subtitle' => 'Adicionar usuário'];
+
+        return view('admin.users.form')->with($data);
     }
 
     /**
@@ -58,8 +79,11 @@ class UserController extends Controller
 
         $user = $this->user->create($dataForm);
 
-        $roles = Role::find($dataForm['roles']);
-        $user->roles()->attach($roles);
+        $role = Role::find($dataForm['role_id']);
+        $user->roles()->attach($role);
+
+        $organizacao = Organizacao::find($dataForm['organizacao_id']);
+        $user->organizations()->attach($organizacao);
 
         if($user && $role){
             return redirect('/admin/users')->with('success', 'Usuário criado com sucesso!');
@@ -87,20 +111,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = $this->user->with('roles')->find($id);
-        $roles = Role::all('id', 'title');
-
-        $formatedRoles = array();
-        foreach ($roles as $role) {
-            $formatedRoles[$role->id] = $role->title;
-        }        
-         
-        $selectedRoles = array(); 
-        foreach ($user->roles as $role) {
-            $selectedRoles[] = $role->id;
-        }
-
-        $data = ['user' => $user, 'roles' => $formatedRoles, 'selectedRoles' => $selectedRoles, 'title' => $this->title, 'subtitle' => 'Editar usuário'];
+        $user = $this->user->with(['roles'])->find($id);
+        $roles = Role::all();
+        $organizations = Organizacao::all();
+        $data = ['user' => $user, 'roles' => $roles, 'organizations' => $organizations, 'title' => $this->title, 'subtitle' => 'Editar usuário'];
 
         return view('admin.users.form')->with($data);
     }
@@ -121,12 +135,9 @@ class UserController extends Controller
             unset($dataForm['password']);
         }
 
+        $role = Role::find($dataForm['role_id']);
         $user->roles()->detach();
-
-        if (isset($dataForm['roles']) && !is_null($dataForm['roles'])) {
-            $role = Role::find($dataForm['roles']);
-            $user->roles()->attach($role);
-        }
+        $user->roles()->attach($role);
 
         if($user->update($dataForm)){
             return redirect('/admin/users')->with('success', 'Usuário editado com sucesso!');

@@ -1,4 +1,4 @@
-# DESCRIÇÃO DO PROJETO
+git # DESCRIÇÃO DO PROJETO
 
 O projeto consiste no desenvolvimento de um painel para a administração de sites e sistemas usando o Laravel integrado com o AdminLTE.
 

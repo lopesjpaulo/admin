@@ -13,11 +13,11 @@ return [
     |
     */
 
-    'title' => 'Painel',
+    'title' => 'EasyDoc',
 
-    'title_prefix' => ' Gestão de conteúdo - ',
+    'title_prefix' => ' EasyDoc - ',
 
-    'title_postfix' => '',
+    'title_postfix' => ' Gestão de conteúdo',
 
     /*
     |--------------------------------------------------------------------------
@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => 'Painel',
+    'logo' => 'EasyDoc',
 
-    'logo_mini' => 'Painel',
+    'logo_mini' => 'EasyDoc',
 
     /*
     |--------------------------------------------------------------------------
@@ -115,41 +115,95 @@ return [
             'icon' => 'home'
         ],
         [
-            'text' => 'Vitrines',
-            'url'  => 'admin/vitrines',
-            'icon' => 'image',
-            'can'  => 'read_vitrines'  
+            'text' => 'Folders',
+            'url'  => 'admin/folder',
+            'icon' => 'folder',
+            'can' => 'read_folders'
+         ],
+        [
+            'text' => 'Pesquisar',
+            'url'  => 'admin/search',
+            'icon' => 'search',
+            'can'  => 'read_pesquisar'
         ],
         [
-            'text' => 'Notícias',
-            'url'  => 'admin/news',
+            'text' => 'Arquivos',
+            'url'  => 'admin/files',
             'icon' => 'newspaper-o',
-            'can'  => 'read_news'  
+            'can'  => 'read_arquivos'
         ],
         [
-            'text' => 'Contatos',
-            'url'  => 'admin/contacts',
-            'icon' => 'envelope',
-            'can'  => 'read_contacts'  
+            'text' => 'Organizações',
+            'url'  => 'admin/organizacoes',
+            'icon' => 'cube',
+            'can'  => 'read_organizacoes'
+        ],
+        [
+            'text' => 'Categorias de organização',
+            'url'  => 'admin/catorganizacoes',
+            'icon' => 'cubes',
+            'can'  => 'read_catorganizacoes'
+        ],
+        [
+            'text' => 'Categorias',
+            'url'  => 'admin/categorias',
+            'icon' => 'sitemap',
+            'can'  => 'read_categorias'
+        ],
+        [
+            'text' => 'Subcategorias',
+            'url'  => 'admin/subcategorias',
+            'icon' => 'tags',
+            'can'  => 'read_subcategorias'
+        ],
+        [
+            'text' => 'Tags',
+            'url'  => 'admin/tags',
+            'icon' => 'tag',
+            'can'  => 'read_tags'
+        ],
+        [
+            'text' => 'Meses',
+            'url'  => 'admin/months',
+            'icon' => 'calendar-check-o',
+            'can'  => 'read_meses'
+        ],
+        [
+            'text' => 'Anos',
+            'url'  => 'admin/years',
+            'icon' => 'calendar-check-o',
+            'can'  => 'read_anos'
+        ],
+        [
+            'text' => 'Relatórios',
+            'url'  => 'admin/reports',
+            'icon' => 'pie-chart',
+            'can'  => 'read_relatorios'
+        ],
+        [
+            'text' => 'Logs',
+            'url'  => 'admin/logs',
+            'icon' => 'archive',
+            'can'  => 'read_logs'
         ],
         'GESTÃO',
         [
             'text' => 'Usuários',
             'url'  => 'admin/users',
             'icon' => 'user',
-            'can'  => 'read_users'
+            'can'  => 'read_usuarios'
         ],
         [
             'text' => 'Grupos',
             'url'  => 'admin/roles',
             'icon' => 'group',
-            'can'  => 'read_roles'
+            'can'  => 'read_grupos'
         ],
         [
-            'text' => 'Permissões',
-            'url'  => 'admin/permissions',
-            'icon' => 'unlock',
-            'can'  => 'read_permissions'
+            'text' => 'Módulos',
+            'url'  => 'admin/modules',
+            'icon' => 'gear',
+            'can'  => 'read_modulos'
         ]
     ],
 

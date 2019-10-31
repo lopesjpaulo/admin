@@ -32,7 +32,8 @@
                     <th>Data de criação</th>
                     <th>Nome</th>
                     <th>E-mail</th>
-                    <th>Grupos</th>
+                    <th>Grupo</th>
+                    <th>Organização</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -43,8 +44,15 @@
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->email }}</td>
                         <td>@foreach($item->roles as $role)
-                                {{ '"'.$role->title.'" ' }}
+                                {{ $role->title.' ' }}
                             @endforeach
+                        </td>
+                        <td>
+                            @if($item->organizations)
+                                @foreach($item->organizations as $role)
+                                    {{ $role->title.' ' }}
+                                @endforeach
+                            @endif
                         </td>
                         <td class="action">
                                 <a href="{{ route('users.edit', $item->id) }}" class="btn btn-primary">Editar</a>

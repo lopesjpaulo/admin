@@ -31,8 +31,6 @@
                 <tr>
                     <th>Data de criação</th>
                     <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Permissões</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -41,11 +39,6 @@
                     <tr>
                         <td>{{ convertdata_tosite($item->created_at) }}</td>
                         <td>{{ $item->title }}</td>
-                        <td>{{ $item->description }}</td>
-                        <td>@foreach($item->permissions as $permission)
-                                {{ '"'.$permission->title.'" ' }}
-                            @endforeach
-                        </td>
                         <td class="action">
                             <a href="{{ route('roles.edit', $item->id) }}" class="btn btn-primary">Editar</a>
                             <form action="{{ route('roles.destroy', $item->id)}}" method="post">
