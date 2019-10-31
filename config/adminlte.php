@@ -13,9 +13,9 @@ return [
     |
     */
 
-    'title' => 'EasyDoc',
+    'title' => 'Admin',
 
-    'title_prefix' => ' EasyDoc - ',
+    'title_prefix' => ' Admin - ',
 
     'title_postfix' => ' Gestão de conteúdo',
 
@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => 'EasyDoc',
+    'logo' => 'Admin',
 
-    'logo_mini' => 'EasyDoc',
+    'logo_mini' => 'Admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -119,7 +119,25 @@ return [
             'url'  => 'admin/folder',
             'icon' => 'folder',
             'can' => 'read_folders'
-         ],
+        ],
+        [
+            'text' => 'Notícias',
+            'url'  => 'admin/news',
+            'icon' => 'newspaper-o',
+            'can'  => 'read_noticias'
+        ],
+        [
+            'text' => 'Vitrines',
+            'url'  => 'admin/vitrines',
+            'icon' => 'image',
+            'can'  => 'read_vitrines'
+        ],
+        [
+            'text' => 'Contatos',
+            'url'  => 'admin/contatos',
+            'icon' => 'commenting-o',
+            'can'  => 'read_contatos'
+        ],
         [
             'text' => 'Pesquisar',
             'url'  => 'admin/search',
@@ -133,28 +151,10 @@ return [
             'can'  => 'read_arquivos'
         ],
         [
-            'text' => 'Organizações',
-            'url'  => 'admin/organizacoes',
-            'icon' => 'cube',
-            'can'  => 'read_organizacoes'
-        ],
-        [
-            'text' => 'Categorias de organização',
-            'url'  => 'admin/catorganizacoes',
-            'icon' => 'cubes',
-            'can'  => 'read_catorganizacoes'
-        ],
-        [
             'text' => 'Categorias',
             'url'  => 'admin/categorias',
             'icon' => 'sitemap',
             'can'  => 'read_categorias'
-        ],
-        [
-            'text' => 'Subcategorias',
-            'url'  => 'admin/subcategorias',
-            'icon' => 'tags',
-            'can'  => 'read_subcategorias'
         ],
         [
             'text' => 'Tags',

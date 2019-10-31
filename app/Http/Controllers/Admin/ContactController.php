@@ -65,14 +65,6 @@ class ContactController extends Controller
         $contact->lido = 1;
         $contact->save();
 
-        Log::create([
-            'register_id' => $contact->id,
-            'user_id' => Auth::id(),
-            'user_ip' => \Request::ip(),
-            'model' => 'contacts',
-            'url' => 'admin/contacts'
-        ]);
-
         return view('admin.contacts.form', compact('contact'));
     }
 

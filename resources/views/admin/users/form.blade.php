@@ -86,18 +86,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label for="inputOrganizacao">Organizações</label>
-                            <select class="form-control select2" name="organizacao_id" id="inputOrganizacao" style="width: 100%;">
-                                @foreach ($organizations as $item)
-                                    <option value="{{ $item->id }}" {{ (isset($user) && isset($user->organizacao->id)) ? (($item->id == $user->organizacao->id) ? 'selected' : '') : '' }}>{{ $item->title }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- /.box-body -->
 

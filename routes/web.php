@@ -16,53 +16,17 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['auth', 'log'], 'namespace' => 'Admin', 'prefix' => 'admin'], function () {
-
     Route::get('/home', 'HomeController@index')->name('admin.home');
 
-    Route::get('/link', function () {
-        \Illuminate\Support\Facades\Artisan::call('storage:link');
-    });
-
-    Route::resource('users', 'UserController');
-    Route::post('/users/{id}', 'UserController@update');
-
-    Route::resource('roles', 'RoleController')->middleware('can:read_grupos');
-    Route::post('/roles/{id}', 'RoleController@update');
-
-    Route::post('/organizacoes/findCatorganizacao', 'OrganizacaoController@findCatorganizacao');
-    Route::resource('organizacoes', 'OrganizacaoController')->middleware('can:read_organizacoes');
-    Route::post('/organizacoes/{id}', 'OrganizacaoController@update');
-
-    Route::resource('catorganizacoes', 'CatorganizacaoController')->middleware('can:read_organizacoes');
-    Route::post('/catorganizacoes/{id}', 'CatorganizacaoController@update');
-
-    Route::post('/categorias/findSubcategoria', 'CategoriaController@findSubcategoria');
     Route::resource('categorias', 'CategoriaController')->middleware('can:read_catorganizacoes');
     Route::post('/categorias/{id}', 'CategoriaController@update');
 
-    Route::resource('subcategorias', 'SubcategoriaController')->middleware('can:read_subcategorias');
-    Route::post('/subcategorias/{id}', 'SubcategoriaController@update');
-
-    Route::resource('tags', 'TagController')->middleware('can:read_tags');
-    Route::post('/tags/{id}', 'TagController@update');
+    Route::resource('contatos', 'ContactController')->middleware('can:read_contatos');
 
     Route::resource('files', 'FileController')->middleware('can:read_arquivos');
     Route::post('/files/{id}', 'FileController@update');
     Route::get('/files/{id}/share', 'FileController@share')->name('files.share');
     Route::post('/files/{id}/share', 'FileController@storeshare')->name('files.storeshare');
-
-    Route::resource('folder', 'FolderController')->middleware('can:read_folders');
-    Route::get('folder/categoria/{id}', 'FolderController@showSubcategorias');
-    Route::get('folder/subcategoria/{id}', 'FolderController@showFiles');
-    Route::get('/folder/{id}/download', 'FolderController@download')->name('folder.download');
-
-    Route::resource('search', 'SearchController')->middleware('can:read_pesquisar');
-
-    Route::resource('share', 'ShareController');
-
-    Route::resource('reports', 'ReportController')->middleware('can:read_relatorios');
-    Route::post('/reports/{id}', 'ReportController@update');
-    Route::get('/reports/{id}/print', 'ReportController@generatePDF')->name('reports.print');
 
     Route::resource('logs', 'LogController')->middleware('can:read_logs');
 
@@ -71,6 +35,27 @@ Route::group(['middleware' => ['auth', 'log'], 'namespace' => 'Admin', 'prefix' 
 
     Route::resource('months', 'MonthController')->middleware('can:read_meses');
     Route::post('/months/{id}', 'MonthController@update');
+
+    Route::resource('news', 'NewsController')->middleware('can:read_noticias');
+    Route::post('/news/{id}', 'NewsController@update');
+
+    Route::resource('reports', 'ReportController')->middleware('can:read_relatorios');
+    Route::post('/reports/{id}', 'ReportController@update');
+    Route::get('/reports/{id}/print', 'ReportController@generatePDF')->name('reports.print');
+
+    Route::resource('roles', 'RoleController')->middleware('can:read_grupos');
+    Route::post('/roles/{id}', 'RoleController@update');
+
+    Route::resource('search', 'SearchController')->middleware('can:read_pesquisar');
+
+    Route::resource('tags', 'TagController')->middleware('can:read_tags');
+    Route::post('/tags/{id}', 'TagController@update');
+
+    Route::resource('users', 'UserController')->middleware('can:read_usuarios');
+    Route::post('/users/{id}', 'UserController@update');
+
+    Route::resource('vitrines', 'VitrineController')->middleware('can:read_vitrines');
+    Route::post('/vitrines/{id}', 'VitrineController@update');
 
     Route::resource('years', 'YearController')->middleware('can:read_anos');
     Route::post('/years/{id}', 'YearController@update');

@@ -64,7 +64,7 @@ class NewsController extends Controller
 
         if(valid_file($request))
         {
-            $upload = upload($request, 'news');
+            $upload = upload_file($request, 'news');
 
             if($upload){
                 $dataForm['file'] = $upload;
@@ -122,7 +122,7 @@ class NewsController extends Controller
 
         if(valid_file($request))
         {
-            $upload = upload($request, 'news');
+            $upload = upload_file($request, 'news');
 
             if($upload){
                 $dataForm['file'] = $upload;

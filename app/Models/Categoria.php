@@ -11,11 +11,6 @@ class Categoria extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
 
-    public function subcategorias()
-    {
-        return $this->hasMany(Subcategoria::class);
-    }
-
     public function files()
     {
         return $this->hasMany(File::class);

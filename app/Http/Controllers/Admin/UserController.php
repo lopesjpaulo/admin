@@ -29,17 +29,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        if(count(Auth::user()->organizations) > 0) {
-            $where = [];
-
-            array_push($where, ['organizacaos.id', '=',  Auth::user()->organizations[0]->id]);
-
-            $users = $this->user->whereHas('organizations', function ($q) use ($where) {
-                $q->where($where);
-            })->orderBy('id', 'desc')->with(['roles'])->paginate(10);
-        } else {
-            $users = $this->user->orderBy('id', 'desc')->with(['roles'])->paginate(10);
-        }
+        $users = $this->user->orderBy('id', 'desc')->with(['roles'])->paginate(10);
 
         $data = ['users' => $users, 'title' => $this->title];
 
@@ -53,15 +43,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        if(count(Auth::user()->organizations) > 0) {
-            $roles = Role::where('id', 3)->get();
-            $organizations = Organizacao::where('id', Auth::user()->organizations[0]->id)->get();
-        } else {
-            $roles = Role::all();
-            $organizations = Organizacao::all();
-        }
+        $roles = Role::all();
 
-        $data = ['roles' => $roles, 'organizations' => $organizations, 'title' => $this->title, 'subtitle' => 'Adicionar usuário'];
+        $data = ['roles' => $roles, 'title' => $this->title, 'subtitle' => 'Adicionar usuário'];
 
         return view('admin.users.form')->with($data);
     }
@@ -81,9 +65,6 @@ class UserController extends Controller
 
         $role = Role::find($dataForm['role_id']);
         $user->roles()->attach($role);
-
-        $organizacao = Organizacao::find($dataForm['organizacao_id']);
-        $user->organizations()->attach($organizacao);
 
         if($user && $role){
             return redirect('/admin/users')->with('success', 'Usuário criado com sucesso!');
@@ -113,8 +94,7 @@ class UserController extends Controller
     {
         $user = $this->user->with(['roles'])->find($id);
         $roles = Role::all();
-        $organizations = Organizacao::all();
-        $data = ['user' => $user, 'roles' => $roles, 'organizations' => $organizations, 'title' => $this->title, 'subtitle' => 'Editar usuário'];
+        $data = ['user' => $user, 'roles' => $roles, 'title' => $this->title, 'subtitle' => 'Editar usuário'];
 
         return view('admin.users.form')->with($data);
     }

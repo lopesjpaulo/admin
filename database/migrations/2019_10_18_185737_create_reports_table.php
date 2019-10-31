@@ -16,10 +16,6 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->integer('organizacao_id')->unsigned();
-            $table->foreign('organizacao_id')->references('id')->on('organizacaos')->onDelete('cascade');
-            $table->integer('catorganizacao_id')->unsigned();
-            $table->foreign('catorganizacao_id')->references('id')->on('catorganizacaos')->onDelete('cascade');
             $table->string('gestor');
             $table->string('processo');
             $table->date('data_inicio');

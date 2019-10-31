@@ -8,7 +8,7 @@
 
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-address-card"></i> Home</a></li>
-        <li><a href="{{ route('contacts.index') }}">Contatos</a></li>
+        <li><a href="{{ route('contatos.index') }}">Contatos</a></li>
         <li class="active">Visualizar contato</li>
     </ol>
 

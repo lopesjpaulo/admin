@@ -12,14 +12,4 @@ class Report extends Model
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
 
     protected $dates = ['data_inicio', 'data_final'];
-
-    public function organizacao()
-    {
-        return $this->belongsTo(Organizacao::class);
-    }
-
-    public function catorganizacao()
-    {
-        return $this->belongsTo(Catorganizacao::class);
-    }
 }

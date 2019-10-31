@@ -17,11 +17,14 @@ class CreateFilesTable extends Migration
             $table->increments('id');
             $table->date('published_at');
             $table->string('title');
+            $table->string('file')->nullable();
             $table->text('resumo')->nullable();
             $table->integer('categoria_id')->unsigned();
             $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
-            $table->integer('subcategoria_id')->unsigned();
-            $table->foreign('subcategoria_id')->references('id')->on('subcategorias')->onDelete('cascade');
+            $table->integer('year_id')->unsigned();
+            $table->foreign('year_id')->references('id')->on('years')->onDelete('cascade');
+            $table->integer('month_id')->unsigned();
+            $table->foreign('month_id')->references('id')->on('months')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

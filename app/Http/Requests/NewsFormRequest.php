@@ -28,7 +28,7 @@ class NewsFormRequest extends FormRequest
             'published_at' => 'required',
             'description' => 'required',
             'content'   => 'required',
-            'image'     => 'image|max:512'
+            'file'     => 'image|max:512'
         ];
     }
 }

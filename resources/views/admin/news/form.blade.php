@@ -89,7 +89,7 @@
                 <div class="col-lg-12">
                     <div class="form-group @error('image') has-error @enderror">
                         <label for="inputImage">Imagem</label>
-                        <input type="file" name="image" class="form-control" id="inputImage">
+                        <input type="file" name="file" class="form-control" id="inputImage">
                         @error('image')
                             <span class="help-block">
                                 <strong>{{ $message }}</strong>

@@ -15,16 +15,6 @@
 
 @section('content')
     <div class="box">
-        <div class="box-header">
-            <a href="{{ route('contacts.create') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Adicionar</a>
-        </div>
-        @if(session()->has('success'))
-            <div class="box-body">
-                <div class="alert alert-success">
-                    {{ session()->get('success') }}
-                </div>
-            </div>
-        @endif
         <div class="box-body">
             <table class="table table-bordered table-striped data-table">
                 <thead>
@@ -46,8 +36,8 @@
                         <td>{{ $item->phone }}</td>
                         <td>{{ $item->lido ? 'Lido' : "Não lido" }}</td>
                         <td class="action">
-                            <a href="{{ route('contacts.show', $item->id) }}" class="btn btn-primary">Vizualizar</a>
-                            <form action="{{ route('contacts.destroy', $item->id)}}" method="post">
+                            <a href="{{ route('contatos.show', $item->id) }}" class="btn btn-primary">Vizualizar</a>
+                            <form action="{{ route('contatos.destroy', $item->id)}}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger" type="submit">Delete</button>

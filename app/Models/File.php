@@ -17,21 +17,6 @@ class File extends Model
         return $this->belongsTo(Categoria::class);
     }
 
-    public function subcategoria()
-    {
-        return $this->belongsTo(Subcategoria::class);
-    }
-
-    public function organizacao()
-    {
-        return $this->belongsTo(Organizacao::class);
-    }
-
-    public function catorganizacao()
-    {
-        return $this->belongsTo(Catorganizacao::class);
-    }
-
     public function month()
     {
         return $this->belongsTo(Month::class);

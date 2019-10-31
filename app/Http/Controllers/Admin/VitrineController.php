@@ -56,7 +56,7 @@ class VitrineController extends Controller
 
         if(valid_file($request))
         {
-            $upload = upload($request, 'vitrines');
+            $upload = upload_file($request, 'vitrines');
 
             if($upload){
                 $dataForm['file'] = $upload;
@@ -113,7 +113,7 @@ class VitrineController extends Controller
 
         if(valid_file($request))
         {
-            $upload = upload($request, 'vitrines');
+            $upload = upload_file($request, 'vitrines');
 
             if($upload){
                 $dataForm['file'] = $upload;

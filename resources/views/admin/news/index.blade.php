@@ -38,16 +38,13 @@
         </thead>
         <tbody>
           @foreach ($lista as $item)
-            @can('view_news', $item)
             <tr>
               <td>{{ convertdata_tosite($item->created_at) }}</td>
               <td>{{ convertdata_tosite($item->published_at) }}</td>
               <td>{{ $item->title }}</td>
               <td>{{ $item->author }}</td>
               <td class="action">
-                @can('edit_news', $item)
                 <a href="{{ route('news.edit', $item->id) }}" class="btn btn-primary">Editar</a>
-                @endcan
                 <form action="{{ route('news.destroy', $item->id)}}" method="post">
                   @csrf
                   @method('DELETE')
@@ -55,7 +52,6 @@
                 </form>
               </td>
             </tr>
-            @endcan
           @endforeach
         </tbody>
       </table>
