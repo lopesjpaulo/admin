@@ -26,7 +26,6 @@ $(function () {
             format: 'dd/mm/yyyy'
         });
     }
-
     //$(".conteudo").wysihtml5();
 
     if($("#my-select")[0]){

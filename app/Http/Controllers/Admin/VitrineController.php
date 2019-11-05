@@ -68,7 +68,7 @@ class VitrineController extends Controller
 
         if(!$vitrine) return redirect('/admin/vitrines')->with('fail', 'Falha ao criar a notícia!');
 
-        return redirect('/admin/vitrines')->with('success', 'Usuário criado com sucesso!');
+        return redirect('/admin/vitrines')->with('success', 'Vitrine criada com sucesso!');
     }
 
     /**

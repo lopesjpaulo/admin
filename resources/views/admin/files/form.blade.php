@@ -101,61 +101,12 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <label for="inputOrganizacao">Organizações</label>
-                            <select class="form-control select2 organizacao-select" name="organizacao_id" id="inputOrganizacao" style="width: 100%;">
-                                <option value="">Selecione uma opção</option>
-                                @if(count(\Illuminate\Support\Facades\Auth::user()->organizations) > 0)
-                                    <option value="{{ \Illuminate\Support\Facades\Auth::user()->organizations[0]->id }}" selected>{{ \Illuminate\Support\Facades\Auth::user()->organizations[0]->title }}</option>
-                                @else
-                                    @foreach ($organizacoes as $item)
-                                        <option value="{{ $item->id }}" {{ isset($file) ? (($item->id == $file->organizacao->id) ? 'selected' : '') : '' }}>{{ $item->title }}</option>
-                                    @endforeach
-                                @endif
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label for="inputCatorganizacao">Categoria de organização</label>
-                            <select class="form-control select2 catorganizacao-select" name="catorganizacao_id" id="inputCatorganizacao" style="width: 100%;">
-                                @if(isset($file))
-                                    <option value="{{ $file->catorganizacao_id }}" selected>{{ $file->catorganizacao->title }}</option>
-                                @elseif(isset($catorganizacoes))
-                                    @foreach ($catorganizacoes as $item)
-                                        <option value="{{ $item->id }}">{{ $item->title }}</option>
-                                    @endforeach
-                                @else
-                                    <option value="">Selecione a organização</option>
-                                @endif
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
                             <label for="inputCategoria">Categorias</label>
                             <select class="form-control select2 categoria-select" name="categoria_id" id="inputCategoria" style="width: 100%;">
                                 <option value="">Selecione uma opção</option>
                                 @foreach ($categorias as $item)
                                     <option value="{{ $item->id }}" {{ isset($file) ? (($item->id == $file->categoria->id) ? 'selected' : '') : '' }}>{{ $item->title }}</option>
                                 @endforeach
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label for="inputSubcategoria">Subcategoria</label>
-                            <select class="form-control select2 subcategoria-select" name="subcategoria_id" id="inputSubcategoria" style="width: 100%;">
-                                @if(isset($file))
-                                    <option value="{{ $file->subcategoria_id }}" selected>{{ $file->subcategoria->title }}</option>
-                                @else
-                                    <option value="">Selecione a categoria</option>
-                                @endif
                             </select>
                         </div>
                     </div>

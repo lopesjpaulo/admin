@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FileFormRequest extends FormRequest
+class FileUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +28,7 @@ class FileFormRequest extends FormRequest
             'categoria_id' => 'required',
             'published_at' => 'required',
             'tags' => 'required',
-            'file' => 'required|mimes:pdf|max:8192'
+            'file' => 'mimes:pdf|max:8192'
         ];
     }
 }

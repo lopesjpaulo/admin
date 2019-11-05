@@ -16,7 +16,7 @@
 @section('content')
     <div class="box">
         <div class="box-header">
-            <a href="{{ route('files.create') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Adicionar</a>
+            <a href="{{ route('videos.create') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Adicionar</a>
         </div>
         @if(session()->has('success'))
             <div class="box-body">
@@ -31,24 +31,17 @@
                 <tr>
                     <th>Data de criação</th>
                     <th>Título</th>
-                    <th>Categoria</th>
-                    <th>Mês</th>
-                    <th>Ano</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($files as $item)
+                @foreach ($videos as $item)
                     <tr>
                         <td>{{ convertdata_tosite($item->created_at) }}</td>
                         <td>{{ $item->title }}</td>
-                        <td>{{ $item->categoria->title }}</td>
-                        <td>{{ $item->month->title }}</td>
-                        <td>{{ $item->year->title }}</td>
                         <td class="action">
-                            {{--<a href="{{ route('files.share', $item->id) }}" class="btn btn-success">Compartilhamento</a>--}}
-                            <a href="{{ route('files.edit', $item->id) }}" class="btn btn-primary">Editar</a>
-                            <form action="{{ route('files.destroy', $item->id)}}" method="post">
+                            <a href="{{ route('videos.edit', $item->id) }}" class="btn btn-primary">Editar</a>
+                            <form action="{{ route('videos.destroy', $item->id)}}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger" type="submit">Delete</button>
@@ -59,7 +52,7 @@
                 </tbody>
             </table>
 
-            {!! $files->links() !!}
+            {!! $videos->links() !!}
 
         </div>
         <!-- /.box-body -->

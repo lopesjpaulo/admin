@@ -10,8 +10,10 @@ use App\Policies\QuestionPolicy;
 use App\Policies\UserPolicy;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -36,12 +38,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        $permissions = Permission::with(['roles'])->get();
+        if (Schema::hasTable('permissions')) {
+            $permissions = Permission::with(['roles'])->get();
 
-        foreach($permissions as $permission){
-            Gate::define($permission->title, function(User $user) use ($permission){
-                return $user->hasPermission($permission);
-            });
+            foreach($permissions as $permission){
+                Gate::define($permission->title, function(User $user) use ($permission){
+                    return $user->hasPermission($permission);
+                });
+            }
         }
     }
 }

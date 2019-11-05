@@ -18,7 +18,7 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth', 'log'], 'namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::get('/home', 'HomeController@index')->name('admin.home');
 
-    Route::resource('categorias', 'CategoriaController')->middleware('can:read_catorganizacoes');
+    Route::resource('categorias', 'CategoriaController')->middleware('can:read_categorias');
     Route::post('/categorias/{id}', 'CategoriaController@update');
 
     Route::resource('contatos', 'ContactController')->middleware('can:read_contatos');
@@ -38,6 +38,12 @@ Route::group(['middleware' => ['auth', 'log'], 'namespace' => 'Admin', 'prefix' 
 
     Route::resource('news', 'NewsController')->middleware('can:read_noticias');
     Route::post('/news/{id}', 'NewsController@update');
+
+    Route::resource('videos', 'VideoController')->middleware('can:read_videos');
+    Route::post('/videos/{id}', 'VideoController@update');
+
+    Route::resource('gallery', 'GalleryController')->middleware('can:read_galerias');
+    Route::post('/gallery/{id}', 'GalleryController@update');
 
     Route::resource('reports', 'ReportController')->middleware('can:read_relatorios');
     Route::post('/reports/{id}', 'ReportController@update');

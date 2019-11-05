@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FileFormRequest;
+use App\Http\Requests\FileUpdateRequest;
 use App\Models\Categoria;
 use App\Models\Catorganizacao;
 use App\Models\File;
@@ -34,18 +35,8 @@ class FileController extends Controller
      */
     public function index()
     {
-        if(count(Auth::user()->organizations) > 0){
-            $where = [
-                ['organizacao_id', Auth::user()->organizations[0]->id],
-                ['users.id', '=',  Auth::id()]
-            ];
+        $files = $this->file->orderBy('id', 'desc')->paginate(10);
 
-            $files = File::whereHas('users', function ($q) use ($where) {
-                $q->where($where);
-            })->orderBy('id', 'desc')->paginate(10);
-        } else {
-            $files = $this->file->orderBy('id', 'desc')->paginate(10);
-        }
         $data = ['files' => $files, 'title' => $this->title];
 
         return view('admin.files.index')->with($data);
@@ -63,26 +54,14 @@ class FileController extends Controller
         $months = Month::all();
         $years = Year::all();
 
-        if(count(Auth::user()->organizations) > 0) {
-            $organizacoes = Organizacao::find(Auth::user()->organizations[0]->id);
-            $catorganizacoes = Catorganizacao::where('organizacao_id', Auth::user()->organizations[0]->id)->get();
-        } else {
-            $organizacoes = Organizacao::all();
-        }
-
         $data = [
             'categorias' => $categorias,
-            'organizacoes' => $organizacoes,
             'years' => $years,
             'months' => $months,
             'tags' => $tags,
             'title' => $this->title,
             'subtitle' => 'Adicionar arquivo'
         ];
-
-        if(isset($catorganizacoes)){
-            $data['catorganizacoes'] = $catorganizacoes;
-        }
 
         return view('admin.files.form')->with($data);
     }
@@ -153,7 +132,6 @@ class FileController extends Controller
     {
         $file = $this->file->with(['tags'])->find($id);
         $categorias = Categoria::all();
-        $organizacoes = Organizacao::all();
         $tags = Tag::all();
         $months = Month::all();
         $years = Year::all();
@@ -161,7 +139,6 @@ class FileController extends Controller
         $data = [
             'file' => $file,
             'categorias' => $categorias,
-            'organizacoes' => $organizacoes,
             'years' => $years,
             'months' => $months,
             'tags' => $tags,
@@ -169,19 +146,7 @@ class FileController extends Controller
             'subtitle' => 'Editar arquivo'
         ];
 
-        if(isset($file)){
-            if(count(Auth::user()->organizations) > 0) {
-                if(($file->organizacao->id == Auth::user()->organizations[0]->id) && ($file->users->contains(Auth::id()))){
-                    return view('admin.files.form')->with($data);
-                } else {
-                    abort(404);
-                }
-            } else {
-                return view('admin.files.form')->with($data);
-            }
-        } else {
-            abort(404);
-        }
+        return view('admin.files.form')->with($data);
     }
 
     /**
@@ -191,7 +156,7 @@ class FileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(FileFormRequest $request, $id)
+    public function update(FileUpdateRequest $request, $id)
     {
         $file = $this->file->findOrFail($id);
         $file->tags()->detach();

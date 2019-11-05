@@ -127,10 +127,22 @@ return [
             'can'  => 'read_noticias'
         ],
         [
+            'text' => 'Albuns',
+            'url'  => 'admin/gallery',
+            'icon' => 'image',
+            'can'  => 'read_galerias'
+        ],
+        [
             'text' => 'Vitrines',
             'url'  => 'admin/vitrines',
             'icon' => 'image',
             'can'  => 'read_vitrines'
+        ],
+        [
+            'text' => 'Vídeos',
+            'url'  => 'admin/videos',
+            'icon' => 'play',
+            'can'  => 'read_videos'
         ],
         [
             'text' => 'Contatos',
