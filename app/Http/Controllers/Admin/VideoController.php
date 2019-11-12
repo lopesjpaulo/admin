@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\VideoFormRequest;
+use App\Http\Requests\VideoUpdateRequest;
+use App\Http\Requests\VitrineUpdateFormRequest;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -49,7 +52,7 @@ class VideoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VideoFormRequest $request)
     {
         $dataForm = $request->all();
 
@@ -102,7 +105,7 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(VideoUpdateRequest $request, $id)
     {
         $video = $this->video->findOrFail($id);
         $dataForm = $request->all();

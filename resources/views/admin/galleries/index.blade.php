@@ -40,6 +40,7 @@
                         <td>{{ convertdata_tosite($item->created_at) }}</td>
                         <td>{{ $item->title }}</td>
                         <td class="action">
+                            <a href="{{ route('gallery.photos', $item->id) }}" class="btn btn-success">Adicionar fotos</a>
                             <a href="{{ route('gallery.edit', $item->id) }}" class="btn btn-primary">Editar</a>
                             <form action="{{ route('gallery.destroy', $item->id)}}" method="post">
                                 @csrf

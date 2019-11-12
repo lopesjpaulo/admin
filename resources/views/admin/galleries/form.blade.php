@@ -1,10 +1,7 @@
 @extends('adminlte::page')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('plugins/gallery/css/jquery.fileupload.css') }} ">
-    <link rel="stylesheet" href="{{ asset('plugins/gallery/css/jquery.fileupload-ui.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/gallery/css/jquery.fileupload-noscript.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/gallery/css/jquery.fileupload-ui-noscript.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/uploader/dist/css/jquery.dm-uploader.min.css') }} ">
 @stop
 
 @section('title', $title)
@@ -24,115 +21,64 @@
 @section('content')
     <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title">{{ isset($news) ? 'Editar notícia' : 'Adicionar notícia' }}</h3>
+            <h3 class="box-title">{{ $subtitle }}</h3>
         </div>
-        <div id="fileupload">
-            <form role="form" method="POST" action="{{ isset($news) ? route('news.update', $news->id) : route('news.store')}}" enctype="multipart/form-data">
-                {!! csrf_field() !!}
-                <div class="row fileupload-buttonbar">
-                    <div class="col-lg-7">
-                        <!-- The fileinput-button span is used to style the file input field as button -->
-                        <span class="btn btn-success fileinput-button">
-                            <i class="glyphicon glyphicon-plus"></i>
-                            <span>Adicionar imagens...</span>
-                            <input type="file" name="files[]" multiple>
-                        </span>
-                        <button type="submit" class="btn btn-primary start">
-                            <i class="glyphicon glyphicon-upload"></i>
-                            <span>Iniciar envio</span>
-                        </button>
-                        <button type="reset" class="btn btn-warning cancel">
-                            <i class="glyphicon glyphicon-ban-circle"></i>
-                            <span>Cancelar envio</span>
-                        </button>
-                        <button type="button" class="btn btn-danger delete">
-                            <i class="glyphicon glyphicon-trash"></i>
-                            <span>Apagar</span>
-                        </button>
-                        <input type="checkbox" class="toggle">
-                        <!-- The global file processing state -->
-                        <span class="fileupload-process"></span>
-                    </div>
-                    <!-- The global progress state -->
-                    <div class="col-lg-5 fileupload-progress fade">
-                        <!-- The global progress bar -->
-                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-                        </div>
-                        <!-- The extended global progress state -->
-                        <div class="progress-extended">&nbsp;</div>
-                    </div>
-                </div>
-                <!-- The table listing the files available for upload/download -->
-                <div class="row">
-                    <div class="col-md-12 table-products">
-                        <table id="table-listing-files" role="presentation" class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th class="col-md-2 sortable text-center">
-                                    <figure class="loading-order-gallery" style="display:none;">
-                                        <img id="loading" src="{{ asset('bundles/base/images/ajax_loader.gif') }}" alt="">
-                                    </figure>
-                                    <button type="button" class="btn btn-default button-order-submit" value="">
-                                        <i class="glyphicon glyphicon-upload"></i>
-                                        <span></span>
-                                    </button>
-                                </th>
-                                <th class="col-md-2 sortable">
+        <div class="box-body">
+            <div class="row" style="display: flex; flex-wrap: wrap;">
+                <div class="col-md-6 col-sm-12">
 
-                                </th>
-                                <th class="col-md-3 sortable">
-                                    <span class="line"></span>
-                                </th>
-                                <th class="col-md-2 sortable">
-                                    <span class="line"></span>
-                                </th>
-                                <th class="col-md-2 sortable">
-                                    <span class="line"></span>
-                                </th>
-                                <th class="col-md-3 sortable">
-                                    <span class="line"></span>
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody class="files"></tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="row fileupload-buttonbar">
-                    <div class="col-lg-7">
-                        <!-- The fileinput-button span is used to style the file input field as button -->
-                        <span class="btn btn-success fileinput-button2">
-                            <i class="glyphicon glyphicon-plus"></i>
-                            <span>Adicionar imagens...</span>
-                        </span>
-                        <button type="submit" class="btn btn-primary start">
-                            <i class="glyphicon glyphicon-upload"></i>
-                            <span>Iniciar envio</span>
-                        </button>
-                        <button type="reset" class="btn btn-warning cancel">
-                            <i class="glyphicon glyphicon-ban-circle"></i>
-                            <span>Cancelar envio</span>
-                        </button>
-                        <button type="button" class="btn btn-danger delete">
-                            <i class="glyphicon glyphicon-trash"></i>
-                            <span>Apagar</span>
-                        </button>
-                        <input type="checkbox" class="toggle">
-                        <!-- The global file processing state -->
-                        <span class="fileupload-process"></span>
-                    </div>
-                    <!-- The global progress state -->
-                    <div class="col-lg-5 fileupload-progress fade">
-                        <!-- The global progress bar -->
-                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                    <!-- Our markup, the important part here! -->
+                    <div id="drag-and-drop-zone" class="dm-uploader p-5">
+                        <h3 class="mb-5 mt-5 text-muted">Drag &amp; drop files here</h3>
+
+                        <div class="btn btn-primary btn-block mb-5">
+                            <span>Open the file Browser</span>
+                            <input type="file" title='Click to add Files' />
                         </div>
-                        <!-- The extended global progress state -->
-                        <div class="progress-extended">&nbsp;</div>
+                    </div><!-- /uploader -->
+
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            File List
+                        </div>
+
+                        <ul class="list-unstyled p-2 d-flex flex-column col" id="files">
+                            <li class="text-muted text-center empty">No files uploaded.</li>
+                        </ul>
                     </div>
                 </div>
-            </form>
+            </div><!-- /file list -->
+
+            <div class="box-footer">
+                <button class="btn-block btn-lg btn-success" id="send-images">Enviar</button>
+            </div>
+
+            <table class="table table-bordered table-striped data-table">
+                <thead>
+                <tr>
+                    <th>Imagem</th>
+                    <th>Data de criação</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($photos as $item)
+                    <tr>
+                        <td> <img class="img-album img-responsive pad" id="list-photos" src="{{ asset("storage/photos/{$item->file}") }}"></td>
+                        <td>{{ convertdata_tosite($item->created_at) }}</td>
+                        <td class="action">
+                            <form action="{{ route('photo.destroy', $item->id)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @stop
@@ -140,93 +86,101 @@
 @section('js')
     <script src="{{ asset('node_modules/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('node_modules/ckfinder/ckfinder.js') }}"></script>
-    <script src="{{ asset('plugins/gallery/js/vendor/jquery.ui.widget.js') }}"></script>
-    <script src="{{ asset('plugins/gallery/js/load-image.min.js') }}"></script>
-    <script src="{{ asset('plugins/gallery/js/jquery.iframe-transport.js') }}"></script>
-    <script src="{{ asset('plugins/gallery/js/jquery.fileupload.js') }}"></script>
-    <script src="{{ asset('plugins/gallery/js/jquery.fileupload-process.js') }}"></script>
-    <script src="{{ asset('plugins/gallery/js/jquery.fileupload-image.js') }}"></script>
-    <script src="{{ asset('plugins/gallery/js/jquery.fileupload-audio.js') }}"></script>
-    <script src="{{ asset('plugins/gallery/js/jquery.fileupload-video.js') }}"></script>
-    <script src="{{ asset('plugins/gallery/js/jquery.fileupload-validate.js') }}"></script>
-    <script src="{{ asset('plugins/gallery/js/jquery.fileupload-ui.js') }}"></script>
+    <script src="{{ asset('plugins/uploader/dist/js/jquery.dm-uploader.min.js') }}"></script>
     <script>
         $(document).ready(function(){
             'use strict';
+            const url = '{!! Request::url() !!}';
+            const id = url.split('/')[7];
 
-            // Initialize the jQuery File Upload widget:
-            $('#fileupload').fileupload({
-                // Uncomment the following to send cross-domain cookies:
-                //xhrFields: {withCredentials: true},
-                url: $('#fileupload form').prop('action')
-                // autoUpload: true
-            }).on('fileuploadsubmit', function (e, data){
-                data.formData = data.context.find(':input').serializeArray();
-            });
-
-
-            // Load existing files:
-            $('#fileupload').addClass('fileupload-processing');
-            $.ajax({
-                // Uncomment the following to send cross-domain cookies:
-                //xhrFields: {withCredentials: true},
-                url: $('#fileupload').fileupload('option', 'url'),
-                dataType: 'json',
-                context: $('#fileupload')[0]
-            }).always(function () {
-                $(this).removeClass('fileupload-processing');
-            }).done(function (result) {
-                $(this).fileupload('option', 'done')
-                    .call(this, $.Event('done'), {result: result});
-            });
-
-            $(".button-order-submit").click(function(){
-                var doSubmit = true;
-                var dataPost = {};
-                var i = 0;
-
-                var alerta   = $("#alert-mail").fadeOut(500);
-                var button = $(this).hide();
-                var loading = $("figure.loading-order-gallery").fadeIn(500);
-
-                // Cria array de Objetos com ID e order
-                // Checa se input é válido
-                $(".td-ordem-images :input").each(function(index, input){
-                    var id =  $(this).attr('data-id');
-
-                    dataPost['data' + i] = {id: id, ordem: input.value};
-
-                    if(!input.checkValidity()){
-                        doSubmit = false;
-                        input.reportValidity();
-                    }
-
-                    i++;
-
-                });
-
-                if(doSubmit){
-                    $.ajax({
-                        url: this.value,
-                        type: 'POST',
-                        "dataType": 'json',
-                        "data": dataPost
-                    })
-                        .success(function(data) {
-
-                            if (data.success) {
-                                location.reload();
-                            }
-
-                            if ( ! data.success) {
-                                alerta.fadeIn(500);
-                                loading.fadeOut(500);
-                                button.fadeIn(500);
-                            }
-                        });
+            $("#drag-and-drop-zone").dmUploader({
+                url: '/admin/public/admin/gallery/'+id+'/photos',
+                auto: false,
+                maxFileSize: 3000000, // 3 Megs
+                onDragEnter: function(){
+                    // Happens when dragging something over the DnD area
+                    this.addClass('active');
+                },
+                onDragLeave: function(){
+                    // Happens when dragging something OUT of the DnD area
+                    this.removeClass('active');
+                },
+                onInit: function(){
+                    // Plugin is ready to use
+                    ui_add_log('Penguin initialized :)', 'info');
+                },
+                onComplete: function(){
+                    // All files in the queue are processed (success or error)
+                    ui_add_log('All pending tranfers finished');
+                    location.reload();
+                },
+                onNewFile: function(id, file){
+                    // When a new file is added using the file selector or the DnD area
+                    ui_add_log('New file added #' + id);
+                    ui_multi_add_file(id, file);
+                },
+                onBeforeUpload: function(id){
+                    // about tho start uploading a file
+                    ui_add_log('Starting the upload of #' + id);
+                    ui_multi_update_file_status(id, 'uploading', 'Uploading...');
+                    ui_multi_update_file_progress(id, 0, '', true);
+                },
+                onUploadCanceled: function(id) {
+                    // Happens when a file is directly canceled by the user.
+                    ui_multi_update_file_status(id, 'warning', 'Canceled by User');
+                    ui_multi_update_file_progress(id, 0, 'warning', false);
+                },
+                onUploadProgress: function(id, percent){
+                    // Updating file progress
+                    ui_multi_update_file_progress(id, percent);
+                },
+                onUploadSuccess: function(id, data){
+                    // A file was successfully uploaded
+                    ui_add_log('Server Response for file #' + id + ': ' + JSON.stringify(data));
+                    ui_add_log('Upload of file #' + id + ' COMPLETED', 'success');
+                    ui_multi_update_file_status(id, 'success', 'Upload Complete');
+                    ui_multi_update_file_progress(id, 100, 'green', false);
+                },
+                onUploadError: function(id, xhr, status, message){
+                    ui_multi_update_file_status(id, 'danger', message);
+                    ui_multi_update_file_progress(id, 0, 'danger', false);
+                },
+                onFallbackMode: function(){
+                    // When the browser doesn't support this plugin :(
+                    ui_add_log('Plugin cant be used here, running Fallback callback', 'danger');
+                },
+                onFileSizeError: function(file){
+                    ui_add_log('File \'' + file.name + '\' cannot be added: size excess limit', 'danger');
                 }
+            });
 
+            $("#send-images").click(function () {
+                $("#drag-and-drop-zone").dmUploader("start");
             });
         });
+    </script>
+
+    <!-- File item template -->
+    <script type="text/html" id="files-template">
+        <li class="media">
+            <div class="media-body mb-1">
+                <p class="mb-2">
+                    <strong>%%filename%%</strong> - Status: <span class="text-muted">Waiting</span>
+                </p>
+                <div class="progress mb-2">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                         role="progressbar"
+                         style="width: 0%"
+                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+                <hr class="mt-1 mb-1" />
+            </div>
+        </li>
+    </script>
+
+    <!-- Debug item template -->
+    <script type="text/html" id="debug-template">
+        <li class="list-group-item text-%%color%%"><strong>%%date%%</strong>: %%message%%</li>
     </script>
 @stop

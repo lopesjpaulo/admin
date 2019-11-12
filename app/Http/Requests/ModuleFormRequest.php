@@ -10,7 +10,7 @@ class ModuleFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->can('create_modulos');
     }
     /**
      * Get the validation rules that apply to the request.

@@ -8,7 +8,7 @@
 if(!function_exists('upload')){
     function upload($request, $dir)
     {
-        if(valid_file($request))
+        if(valid_image($request))
         {
             $extension = $request->image->extension();
             $title = set_filename_random();
@@ -44,6 +44,17 @@ if(!function_exists('upload_file')){
         }
     }
 }
+if(!function_exists('valid_image'))
+{
+    function valid_image($request)
+    {
+        if($request != null)
+        {
+            return ($request->hasFile('image') && $request->file('image')->isValid());
+        }
+    }
+}
+
 
 if(!function_exists('valid_file'))
 {

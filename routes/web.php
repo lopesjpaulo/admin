@@ -44,6 +44,9 @@ Route::group(['middleware' => ['auth', 'log'], 'namespace' => 'Admin', 'prefix' 
 
     Route::resource('gallery', 'GalleryController')->middleware('can:read_galerias');
     Route::post('/gallery/{id}', 'GalleryController@update');
+    Route::get('/gallery/{id}/photos', 'GalleryController@photos')->name('gallery.photos');
+    Route::post('/gallery/{id}/photos', 'GalleryController@storephotos');
+    Route::delete('/gallery/{id}/photos', 'GalleryController@deletephotos')->name('photo.destroy');
 
     Route::resource('reports', 'ReportController')->middleware('can:read_relatorios');
     Route::post('/reports/{id}', 'ReportController@update');
