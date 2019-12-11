@@ -2,6 +2,7 @@
 /public/hot
 /public/storagegit
 /public/node_modules
+/public/storage
 /storage/*.key
 /vendor
 .env
